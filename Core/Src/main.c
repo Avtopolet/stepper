@@ -6,13 +6,20 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2022 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
+  *Controlling stepper motor by L239D driver and "Black pill", full step, half step.
+  *Builded for testing stepper motors.
+  *For communication used USB CDC and type C port of "black pill"
+  *Need to change  function in file below
+  *----------------usbd_cdc_if.c--------------
+  **static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
+	{
+    USBD_CDC_SetRxBuffer(&hUsbDeviceFS, &Buf[0]);
+    USBD_CDC_ReceivePacket(&hUsbDeviceFS);
+    memset (buffer, '\0', 64);  // clear the buffer
+    uint8_t len = (uint8_t)*Len;
+    memcpy(buffer, Buf, len);  // copy the data to the buffer
+    memset(Buf, '\0', len);   // clear the Buf also
+    return (USBD_OK);}
   ******************************************************************************
   */
 /* USER CODE END Header */
