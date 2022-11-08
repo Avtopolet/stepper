@@ -1,0 +1,7 @@
+../Core/Src/main.c:70:5:main	40	static
+../Core/Src/main.c:239:6:SystemClock_Config	88	static
+../Core/Src/main.c:285:13:MX_GPIO_Init	40	static
+../Core/Src/main.c:318:6:stepper_half_drive	8	static
+../Core/Src/main.c:376:6:stepper_full_drive	16	static
+../Core/Src/main.c:425:6:stepper_hold	8	static
+../Core/Src/main.c:439:6:Error_Handler	4	static,ignoring_inline_asm
