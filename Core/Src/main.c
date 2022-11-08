@@ -20,12 +20,15 @@
     memcpy(buffer, Buf, len);  // copy the data to the buffer
     memset(Buf, '\0', len);   // clear the Buf also
     return (USBD_OK);}
+
+    Used lesson from https://controllerstech.com/send-and-receive-data-to-pc-without-uart-stm32-usb-com/
   ******************************************************************************
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "usb_device.h"
+#include <stdio.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -49,10 +52,11 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint8_t buffer[64]; //recive buffer from USB CDC
+uint8_t buffer[64]; //receive buffer from USB CDC
 int choise;         //way to make choise of test program (speed of rotation)		
-int stepdelay;      //delay betwen steps - test
+int stepdelay;      //delay between steps - test
 int8_t thisStep = 0;
+char buff[16];      //transmittion buffer
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -112,6 +116,24 @@ int main(void)
   {
 
 	  //HAL_Delay(200); //delay 100ms
+
+	  if (buffer[strlen(buffer)-2] == '/') { snprintf(buff, sizeof(buff), "%d\r\n\0",strlen(buffer)); // return number of characters in recived buffer
+		  	  	  	  	  	  CDC_Transmit_FS(buff, sizeof(buff));   //receiving four bytes with ending character
+	  	  	  	  	  	  	  	  	  	 HAL_Delay(1000);}
+
+	  //snprintf(buff, sizeof(buff), "%.1f, %d\r\n\0",degree, TIM4->CNT); //output example of float and int number
+
+	 /* uint32_t num = 0;
+	  for(int i=0; i<4; i++)
+	  {
+	      num <<= 8;
+	      num |= outstr[i];
+	  }*/
+	  //memset (buffer, '\0', 64);
+
+
+
+
 
       if (buffer[0] == '1') {choise=1;}
       if (buffer[0] == '2') {choise=2;}
