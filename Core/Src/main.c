@@ -49,9 +49,9 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint8_t buffer[64];
-int choise;
-int stepdelay;
+uint8_t buffer[64]; //recive buffer from USB CDC
+int choise;         //way to make choise of test program (speed of rotation)		
+int stepdelay;      //delay betwen steps - test
 int8_t thisStep = 0;
 /* USER CODE END PV */
 
